@@ -210,7 +210,7 @@ class TreeControl(Generic[NodeDataType], Widget):
         node_id: NodeID,
         label: TextType,
         data: NodeDataType,
-    ) -> None:
+    ) -> TreeNode[NodeDataType]:
         parent = self.nodes[node_id]
         self.id = NodeID(self.id + 1)
         child_tree = parent._tree.add(label)
@@ -220,8 +220,8 @@ class TreeControl(Generic[NodeDataType], Widget):
         parent.children.append(child_node)
         child_tree.label = child_node
         self.nodes[self.id] = child_node
-
         self.refresh(layout=True)
+        return child_node
 
     def find_cursor(self) -> int | None:
         """Find the line location for the cursor node."""
